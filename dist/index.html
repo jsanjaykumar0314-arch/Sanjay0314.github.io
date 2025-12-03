@@ -1,107 +1,733 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Creative - Start Bootstrap Theme</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap Icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
-        <!-- SimpleLightbox plugin CSS-->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body id="page-top">
-       <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#page-top">Sanjay Kumar J</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sanjay Kumar J | Cybersecurity Engineer</title>
+  <meta name="description"
+        content="3D portfolio of Sanjay Kumar J, Cybersecurity Engineer skilled in Ethical Hacking, Network Security, SOC & Threat Detection, ML + Blockchain and Post-Quantum Cryptography." />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap for grid -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Three.js for 3D background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: rgba(15,23,42,0.92);
+      --accent: #22c55e;
+      --accent2: #22d3ee;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2933;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
+      overflow-x: hidden;
+    }
+
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* 3D background canvas */
+    #bg3d {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: radial-gradient(circle at top, #020617 0, #000 65%);
+    }
+
+    /* subtle dark overlay so text readable */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(34, 197, 94, 0.1), transparent 50%),
+                  radial-gradient(circle at bottom, rgba(34, 211, 238, 0.06), transparent 55%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* NAVBAR */
+    .nav-glass {
+      backdrop-filter: blur(18px);
+      background: linear-gradient(90deg, rgba(2,6,23,0.96), rgba(15,23,42,0.92));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    }
+    .navbar-brand {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.95rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent) !important;
+    }
+    .nav-link {
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted) !important;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent2) !important;
+    }
+
+    /* HERO */
+    section {
+      padding: 80px 0;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 96px;
+    }
+
+    .card-3d {
+      position: relative;
+      border-radius: 26px;
+      padding: 30px 26px;
+      border: 1px solid rgba(148,163,184,0.35);
+      background: radial-gradient(circle at top left, rgba(34,197,94,0.16), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(34,211,238,0.16), transparent 55%),
+                  rgba(15,23,42,0.97);
+      box-shadow:
+        0 25px 80px rgba(0,0,0,0.85),
+        0 0 0 1px rgba(15,23,42,0.9);
+      transform-style: preserve-3d;
+      transform: perspective(1000px) rotateX(10deg) rotateY(-8deg);
+      transition: transform 0.7s ease, box-shadow 0.7s ease;
+    }
+    .card-3d:hover {
+      transform: perspective(1000px) rotateX(4deg) rotateY(-2deg) translateY(-6px);
+      box-shadow:
+        0 30px 90px rgba(0,0,0,0.95),
+        0 0 40px rgba(34,197,94,0.3);
+    }
+
+    .hero-tag {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 4vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .type-line {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.95rem;
+      color: var(--accent);
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 0.12em solid var(--accent);
+      width: 0;
+      animation: typing 3.5s steps(40, end) forwards,
+                 blink 0.75s step-end infinite;
+      margin-bottom: 18px;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: var(--accent); }
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .btn-glow {
+      border-radius: 999px;
+      padding: 11px 26px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: none;
+      background: linear-gradient(120deg, var(--accent), var(--accent2));
+      color: #020617;
+      box-shadow:
+        0 14px 30px rgba(34,197,94,0.55),
+        0 0 24px rgba(34,197,94,0.6);
+    }
+    .btn-glow:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: 1px solid rgba(148,163,184,0.55);
+      background: transparent;
+      color: var(--text);
+    }
+    .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .hero-meta span { display: block; }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .chip {
+      font-size: 0.75rem;
+      border-radius: 999px;
+      padding: 3px 10px;
+      border: 1px solid rgba(148,163,184,0.5);
+      color: var(--muted);
+    }
+
+    .mini-panel {
+      border-radius: 20px;
+      padding: 22px;
+      background: rgba(15,23,42,0.96);
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
+    }
+
+    .mini-title {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 10px;
+    }
+
+    /* Sections */
+    .section-label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .section-heading {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .card-soft {
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(31,41,55,0.9);
+      background: rgba(15,23,42,0.96);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.85);
+      height: 100%;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.1);
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .list-compact {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .list-compact li::before {
+      content: "▹";
+      color: var(--accent2);
+      margin-right: 6px;
+      font-size: 0.78rem;
+    }
+
+    .skill-chip {
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--muted);
+      margin: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .skill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .contact-box {
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: radial-gradient(circle at top,
+                rgba(34,197,94,0.16),
+                rgba(15,23,42,0.98));
+      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .contact-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      font-family: "JetBrains Mono", monospace;
+      color: var(--accent);
+    }
+
+    footer {
+      padding: 16px 0 24px;
+      border-top: 1px solid rgba(31,41,55,0.9);
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      background: rgba(2,6,23,0.95);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 991.98px) {
+      .hero {
+        padding-top: 112px;
+      }
+      .card-3d {
+        transform: perspective(900px) rotateX(4deg) rotateY(0deg);
+      }
+      .card-3d:hover {
+        transform: perspective(900px) rotateX(1deg) rotateY(0deg) translateY(-4px);
+      }
+      .navbar-collapse {
+        background: rgba(2,6,23,0.98);
+        border-radius: 0 0 16px 16px;
+        border: 1px solid rgba(31,41,55,0.9);
+        margin-top: 6px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 3D BACKGROUND -->
+  <canvas id="bg3d"></canvas>
+  <div id="overlay"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark nav-glass fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#home">Sanjay Kumar J</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navMain">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-7">
+          <div class="card-3d">
+            <div class="hero-tag">Cybersecurity · Offensive + Defensive</div>
+            <h1 class="hero-title">Cybersecurity Engineer</h1>
+            <p class="hero-subtitle">Ethical Hacking · SOC · Threat Detection · Network Security</p>
+            <div class="type-line">
+              &gt; Building secure systems with Python, ML, Blockchain and PQC.
             </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <header class="masthead">
-        <div class="container px-4 px-lg-5 h-100">
-            <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
-                <div class="col-lg-8 align-self-end">
-                    <h1 class="text-white font-weight-bold">Cybersecurity Engineer</h1>
-                    <hr class="divider" />
-                </div>
-                <div class="col-lg-8 align-self-baseline">
-                    <p class="text-white-75 mb-5">Ethical Hacking • Network Security • Threat Detection • Python • SOC Skills</p>
-                    <a class="btn btn-primary btn-xl" href="#about">Explore More</a>
-                </div>
+            <div class="hero-buttons">
+              <a href="#projects" class="btn-glow">View Projects</a>
+              <a href="#contact" class="btn-ghost">Contact Me</a>
             </div>
-        </div>
-    </header>
 
-    <!-- About Section -->
-    <section class="page-section bg-primary" id="about">
-        <div class="container px-4 px-lg-5 text-center">
-            <h2 class="text-white mt-0">About Me</h2>
-            <hr class="divider divider-light" />
-            <p class="text-white-75 mb-4">
-                I am Sanjay Kumar J, an entry-level Cybersecurity Engineer with skills in Ethical Hacking,
-                Network Security, Threat Detection, SIEM fundamentals, Python automation, and secure web development.
-                Hands-on with Nmap, Wireshark, Burp Suite, Kali Linux & Metasploit. I focus on PQC, ML Security, Blockchain,
-                and modern cyber defense. Passionate to work as a SOC or Security Analyst.
+            <div class="hero-meta">
+              <span><strong>Location:</strong> Chennai · Open to SOC / Security Analyst roles</span>
+              <span><strong>Tools:</strong> Wireshark · Nmap · Burp Suite · Kali Linux · Metasploit</span>
+            </div>
+
+            <div class="chip-row">
+              <div class="chip">Quantum-Resistant Crypto</div>
+              <div class="chip">ML Security</div>
+              <div class="chip">IoT & Edge Security</div>
+              <div class="chip">Secure Web Dev</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="mini-panel">
+            <div class="mini-title">Snapshot</div>
+            <p class="small text-muted mb-2">
+              Entry-level Cybersecurity Engineer with hands-on experience in Ethical Hacking,
+              Network Security, SIEM fundamentals, IoT security and secure web development.
             </p>
+            <ul class="list-compact">
+              <li>B.E. Cyber Security – SRM Valliammai Engineering College (2021–2025)</li>
+              <li>Web Development Intern – CodeBind Technologies, Chennai</li>
+              <li>Comfortable with Python, C, SQL, Bash & full-stack web basics</li>
+              <li>Exploring PQC, ML-based anomaly detection & blockchain integrity</li>
+            </ul>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Skills Section -->
-    <section class="page-section" id="skills">
-        <div class="container px-4 px-lg-5 text-center">
-            <h2 class="mt-0">Technical Skills</h2>
-            <hr class="divider" />
-            <p>
-                <strong>Programming:</strong> Python, C, SQL, Bash<br>
-                <strong>Cybersecurity:</strong> Ethical Hacking, Network Security, Vulnerability Assessment, Log Analysis<br>
-                <strong>Tools:</strong> Nmap, Wireshark, Burp Suite, Kali Linux, Metasploit<br>
-                <strong>Other:</strong> Blockchain (Ganache), Ethereum, ML (TensorFlow), Secure Web Dev
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-7">
+          <div class="section-label">About</div>
+          <h2 class="section-heading">Who am I?</h2>
+          <p class="section-sub">
+            I enjoy thinking like an attacker and acting like a defender – breaking systems ethically,
+            then hardening them.
+          </p>
+          <p class="text-muted">
+            My work spans Ethical Hacking, Network Security, IoT security and secure web development.
+            I am comfortable in Linux environments, scripting with Python and using tools such as Wireshark,
+            Nmap, Burp Suite and Metasploit. I love experimenting with emerging areas like
+            <strong>Post-Quantum Cryptography (PQC)</strong>, <strong>Machine Learning-based anomaly detection</strong>,
+            and <strong>Blockchain-backed data integrity</strong>.
+          </p>
+        </div>
+        <div class="col-lg-5">
+          <div class="card-soft">
+            <div class="pill">Highlights</div>
+            <ul class="list-compact">
+              <li>Strong foundation in networking, security concepts and OWASP Top 10.</li>
+              <li>Hands-on projects integrating ML, blockchain and PQC with security.</li>
+              <li>Goal: Join a Security Operations Center (SOC) to monitor logs and detect threats in real time.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-label">Skills</div>
+      <h2 class="section-heading">Core Technical Stack</h2>
+      <p class="section-sub">
+        A mix of offensive and defensive skills across programming, security tooling and emerging tech.
+      </p>
+
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="card-soft">
+            <div class="pill">Programming</div>
+            <div>
+              <div class="skill-chip"><span class="skill-dot"></span>Python</div>
+              <div class="skill-chip"><span class="skill-dot"></span>C</div>
+              <div class="skill-chip"><span class="skill-dot"></span>SQL</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Bash (Basic)</div>
+              <div class="skill-chip"><span class="skill-dot"></span>HTML / CSS / JS / PHP</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card-soft">
+            <div class="pill">Security & Networking</div>
+            <div>
+              <div class="skill-chip"><span class="skill-dot"></span>Ethical Hacking</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Network Security</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Threat Detection</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Vulnerability Assessment</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Log Analysis (Beginner)</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Firewall & IDS/IPS Concepts</div>
+              <div class="skill-chip"><span class="skill-dot"></span>OWASP Top 10</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card-soft">
+            <div class="pill">Tools & Emerging Tech</div>
+            <div>
+              <div class="skill-chip"><span class="skill-dot"></span>Wireshark</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Nmap</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Burp Suite</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Kali Linux</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Metasploit (Basic)</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Ganache & Ethereum</div>
+              <div class="skill-chip"><span class="skill-dot"></span>TensorFlow (Beginner)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-label">Projects</div>
+      <h2 class="section-heading">Security Projects & Research</h2>
+      <p class="section-sub">
+        A glimpse into the problems I solve and the technologies I experiment with.
+      </p>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card-soft h-100">
+            <div class="pill">Post-Quantum Cryptography</div>
+            <h5 class="mb-1">Quantum-Resistant Cryptography</h5>
+            <p class="text-muted small mb-2">Python · NIST PQC Libraries</p>
+            <ul class="list-compact">
+              <li>Designed and evaluated quantum-resistant cryptographic algorithms using PQC standards.</li>
+              <li>Implemented key generation and encryption in Python with NIST PQC primitives.</li>
+              <li>Analyzed algorithm integrity and resistance to quantum-based attacks.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card-soft h-100">
+            <div class="pill">ML + Blockchain Security</div>
+            <h5 class="mb-1">Machine Learning + Blockchain for Edge Device Security</h5>
+            <p class="text-muted small mb-2">Python · TensorFlow · Ethereum · Ganache · Flask</p>
+            <ul class="list-compact">
+              <li>Developed a secure data transmission model for IoT edge devices using ML-based anomaly detection.</li>
+              <li>Integrated TensorFlow models with Ethereum blockchain for tamper-proof data tracking.</li>
+              <li>Built a Flask backend for secure communication and performance analysis.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-label">Experience</div>
+      <h2 class="section-heading">Where I’ve Worked</h2>
+
+      <div class="row g-4">
+        <div class="col-md-8">
+          <div class="card-soft">
+            <div class="pill">Internship</div>
+            <h5 class="mb-1">Web Development Intern — CodeBind Technologies</h5>
+            <p class="text-muted small mb-2">Chennai · Aug 2023</p>
+            <ul class="list-compact">
+              <li>Developed responsive web applications using HTML, CSS, JavaScript, PHP and MySQL.</li>
+              <li>Debugged, tested and deployed modules to improve UI, performance and reliability.</li>
+              <li>Gained understanding of full-stack development, client–server architecture and basic application security.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card-soft">
+            <div class="pill">Education & Certifications</div>
+            <ul class="list-compact">
+              <li>B.E. Cyber Security – SRM Valliammai Engineering College (2021–2025)</li>
+              <li>Higher Secondary – Bharathidasan Matric Hr. Sec. School (2020–2021)</li>
+            </ul>
+            <ul class="list-compact mt-2">
+              <li>Ethical Hacking – Certificate in Ethical Hacking</li>
+              <li>Cyber Security Analyst – Job Simulation (TCS Forage)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-label">Contact</div>
+      <h2 class="section-heading">Let’s Talk Security</h2>
+      <p class="section-sub">
+        Open to SOC / Security Analyst roles, internships and security research collaborations.
+      </p>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="contact-box">
+            <p class="small text-muted mb-3">
+              Whether it’s blue-team monitoring, red-team style assessments or experimental work in PQC
+              and ML security – I’d love to be part of it.
             </p>
+
+            <a class="contact-item" href="mailto:j.sanjaykumar1564@gmail.com">
+              <span class="contact-icon">@</span>
+              <span>j.sanjaykumar1564@gmail.com</span>
+            </a>
+
+            <div class="contact-item">
+              <span class="contact-icon">☎</span>
+              <span>+91 63831 39214</span>
+            </div>
+
+            <a class="contact-item" href="https://linkedin.com/in/sanjaykumar" target="_blank" rel="noreferrer">
+              <span class="contact-icon">in</span>
+              <span>linkedin.com/in/sanjaykumar</span>
+            </a>
+
+            <!-- GitHub link — fill your username when ready -->
+            <!--
+            <a class="contact-item" href="https://github.com/YOUR_GITHUB" target="_blank" rel="noreferrer">
+              <span class="contact-icon">gh</span>
+              <span>github.com/YOUR_GITHUB</span>
+            </a>
+            -->
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Projects Section -->
-    <section class="page-section bg-light" id="projects">
-        <div class="container px-4 px-lg-5">
-            <h2 class="text-center mt-0">Projects</h2>
-            <hr class="divider" />
+  <footer>
+    © 2025 · Built by Sanjay Kumar J · Cybersecurity Engineer · Hosted on GitHub Pages
+  </footer>
 
-            <h4>Quantum-Resistant Cryptography (2025)</h4>
-            <p>Designed PQC algorithms using NIST libraries, secured key exchange, quantum attack resistance testing.</p>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-            <h4>Machine Learning + Blockchain for Edge Device Security (2024)</h4>
-            <p>Built ML anomaly detection + Ethereum blockchain validation for IoT security. Used TensorFlow & Ganache.</p>
-        </div>
-    </section>
+  <!-- 3D background script -->
+  <script>
+    const canvas = document.getElementById("bg3d");
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 0, 26);
 
-    <!-- Contact Section -->
-    <section class="page-section bg-dark text-white" id="contact">
-        <div class="container px-4 px-lg-5 text-center">
-            <h2>Contact Me</h2>
-            <p>Email: j.sanjaykumar1564@gmail.com</p>
-            <p>Phone: +91 63831 39214</p>
-            <p>LinkedIn: linkedin.com/in/sanjaykumar</p>
-        </div>
-    </section>
-    </body>
+    const resize = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    };
+    window.addEventListener("resize", resize);
+    resize();
+
+    // Particles
+    const particleCount = 900;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      positions[i] = (Math.random() - 0.5) * 80;
+      positions[i + 1] = (Math.random() - 0.5) * 40;
+      positions[i + 2] = (Math.random() - 0.5) * 80;
+    }
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+    const material = new THREE.PointsMaterial({
+      color: 0x22c55e,
+      size: 0.12,
+      transparent: true,
+      opacity: 0.8
+    });
+
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
+
+    // Wireframe sphere
+    const sphereGeo = new THREE.SphereGeometry(8, 24, 24);
+    const sphereMat = new THREE.MeshBasicMaterial({
+      color: 0x22d3ee,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.35
+    });
+    const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+    scene.add(sphere);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = Date.now() * 0.00008;
+      points.rotation.y += 0.0008;
+      sphere.rotation.y += 0.0015;
+      sphere.rotation.x = Math.sin(t) * 0.4;
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
 </html>
