@@ -1,94 +1,669 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Sanjay Kumar J - Cybersecurity Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
-    <link href="dist/css/styles.css" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sanjay Kumar J | Cybersecurity Engineer</title>
+  <meta name="description"
+        content="Portfolio of Sanjay Kumar J, Cybersecurity Engineer skilled in Ethical Hacking, Network Security, SOC, Threat Detection, ML + Blockchain, and Quantum-Resistant Cryptography." />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap (for grid & responsiveness) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #030712;
+      --bg-alt: #050816;
+      --accent: #00ff9c;
+      --accent-soft: rgba(0, 255, 156, 0.12);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-soft: #1f2933;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #030712 45%, #000 100%);
+      color: var(--text-main);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* NAVBAR */
+    .nav-glass {
+      backdrop-filter: blur(14px);
+      background: linear-gradient(90deg, rgba(3,7,18,0.97), rgba(3,7,18,0.85));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .navbar-brand {
+      font-family: "Space Mono", monospace;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      color: var(--accent) !important;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted) !important;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent) !important;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .hero-katana {
+      border-radius: 24px;
+      border: 1px solid var(--border-soft);
+      padding: 32px 28px;
+      background: radial-gradient(circle at top left,
+                rgba(0,255,156,0.18),
+                transparent 55%)
+                , rgba(15,23,42,0.92);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-katana::before {
+      content: "";
+      position: absolute;
+      inset: -200px;
+      background:
+        radial-gradient(circle at 0 0, rgba(0,255,156,0.05), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(59,130,246,0.08), transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .hero-tagline {
+      font-family: "Space Mono", monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.6rem, 4vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      font-family: "Space Mono", monospace;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .typewriter {
+      overflow: hidden;
+      border-right: .15em solid var(--accent);
+      white-space: nowrap;
+      animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--accent); }
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .hero-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent);
+    }
+
+    .btn-primary-glow {
+      position: relative;
+      overflow: hidden;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 12px 26px;
+      background: linear-gradient(90deg, #22c55e, #22d3ee);
+      color: #020617;
+      font-weight: 700;
+      box-shadow: 0 15px 30px rgba(34,197,94,0.5);
+    }
+
+    .btn-primary-glow:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 11px 22px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: transparent;
+      color: var(--text-main);
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .hero-meta strong {
+      color: var(--accent);
+      font-family: "Space Mono", monospace;
+    }
+
+    .hero-side {
+      border-radius: 24px;
+      border: 1px solid var(--border-soft);
+      padding: 24px;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.9), #020617);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.85);
+    }
+
+    .tag-chip {
+      font-size: 0.75rem;
+      border-radius: 999px;
+      padding: 3px 10px;
+      border: 1px solid rgba(148,163,184,0.4);
+      color: var(--text-muted);
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-family: "Space Mono", monospace;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .section-heading {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 28px;
+    }
+
+    .card-hacker {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: linear-gradient(145deg, rgba(15,23,42,0.98), rgba(15,23,42,0.94));
+      padding: 18px 18px 16px;
+      height: 100%;
+    }
+
+    .pill-soft {
+      display: inline-flex;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-family: "Space Mono", monospace;
+      margin-bottom: 8px;
+    }
+
+    .list-compact {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .list-compact li::before {
+      content: "▹";
+      color: var(--accent);
+      margin-right: 6px;
+      font-size: 0.8rem;
+    }
+
+    /* Skills grid */
+    .skill-chip {
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(148,163,184,0.5);
+      color: var(--text-muted);
+      margin: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .skill-chip span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* Contact */
+    .contact-box {
+      border-radius: 20px;
+      border: 1px solid var(--border-soft);
+      padding: 24px;
+      background: radial-gradient(circle at top,
+                  rgba(0,255,156,0.12),
+                  rgba(15,23,42,0.96));
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .contact-link i {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-style: normal;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 18px 0 26px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    @media (max-width: 991.98px) {
+      .hero {
+        padding-top: 96px;
+      }
+      .hero-katana {
+        margin-bottom: 20px;
+      }
+      .navbar-collapse {
+        background: rgba(3,7,18,0.96);
+        border-radius: 0 0 16px 16px;
+        border: 1px solid var(--border-soft);
+        margin-top: 6px;
+      }
+    }
+  </style>
 </head>
 
-<body id="page-top">
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark nav-glass fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#home">Sanjay Kumar J</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navMain">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#page-top">Sanjay Kumar J</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-7">
+          <div class="hero-katana position-relative">
+            <div class="hero-tagline">Cybersecurity • Offensive & Defensive</div>
+            <h1 class="hero-title">
+              <span class="typewriter">Cybersecurity Engineer & SOC Aspirant</span>
+            </h1>
+            <p class="hero-subtitle">
+              Ethical Hacking · Network Security · Threat Detection · Incident Response
+            </p>
+
+            <div class="hero-pill">
+              <span class="hero-dot"></span>
+              <span>Currently exploring Quantum-Resistant Cryptography & ML-driven Edge Security</span>
             </div>
-        </div>
-    </nav>
 
-    <!-- Hero -->
-    <header class="masthead">
-        <div class="container text-center h-100">
-            <h1 class="text-white font-weight-bold">Cybersecurity Engineer</h1>
-            <p class="text-white-75">Ethical Hacking | SOC | Threat Detection | Network Security</p>
-            <a class="btn btn-primary btn-xl" href="#about">Explore</a>
-        </div>
-    </header>
+            <div class="d-flex flex-wrap gap-2 mb-3">
+              <a href="#projects" class="btn btn-primary-glow">View Projects</a>
+              <a href="#contact" class="btn btn-ghost">Contact Me</a>
+            </div>
 
-    <!-- About -->
-    <section id="about" class="page-section bg-primary text-white">
-        <div class="container text-center">
-            <h2>About Me</h2>
-            <p class="text-white-75">
-                I am Sanjay Kumar J, an entry-level Cybersecurity Engineer with skills in Ethical Hacking,
-                Network Security, Threat Detection, SIEM basics, Python automation and secure web development.
-                Hands-on with Nmap, Wireshark, Burp Suite, Kali Linux & Metasploit.
+            <div class="hero-meta">
+              <span><strong>&gt;_</strong> Based in Chennai · Open to SOC / Security Analyst roles</span><br/>
+              <span><strong>#</strong> Wireshark · Nmap · Burp Suite · Kali Linux · Metasploit</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="hero-side">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="pill-soft">Security Snapshot</span>
+              <span class="tag-chip">B.E. Cyber Security</span>
+            </div>
+            <p class="small text-muted mb-3">
+              Entry-level Cybersecurity Engineer with hands-on experience in Ethical Hacking,
+              Network Security, SIEM fundamentals, IoT security and secure web development.
+              Skilled in Python scripting, vulnerability assessment and basic incident response.
             </p>
-        </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills" class="page-section">
-        <div class="container text-center">
-            <h2 class="mt-0">Technical Skills</h2>
-            <p>
-                <b>Programming:</b> Python, C, SQL, Bash<br>
-                <b>Cybersecurity:</b> Ethical Hacking, Network Security, Vulnerability Assessment<br>
-                <b>Tools:</b> Nmap, Wireshark, Burp Suite, Metasploit, Kali Linux<br>
-                <b>Tech:</b> Blockchain (Ganache), Ethereum, TensorFlow
+            <div class="d-flex flex-wrap gap-2 mb-3">
+              <span class="tag-chip">Threat Detection</span>
+              <span class="tag-chip">SOC Ready</span>
+              <span class="tag-chip">Log Analysis (Beginner)</span>
+              <span class="tag-chip">Blockchain Security</span>
+              <span class="tag-chip">ML Security</span>
+            </div>
+            <p class="hero-meta mb-0">
+              <strong>Goal:</strong> Join a Security Operations Center to monitor logs,
+              detect threats and strengthen organizational security posture.
             </p>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Projects -->
-    <section id="projects" class="page-section bg-light">
-        <div class="container">
-            <h2 class="text-center">Projects</h2>
-
-            <h4>Quantum-Resistant Cryptography (2025)</h4>
-            <p>Designed PQC algorithms using NIST libraries, secure key exchange & quantum-resistant encryption.</p>
-
-            <h4>ML + Blockchain Security for IoT (2024)</h4>
-            <p>Built anomaly detection with TensorFlow + Ethereum blockchain integrity using Ganache.</p>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-7">
+          <div class="section-title">About</div>
+          <h2 class="section-heading">Who am I?</h2>
+          <p class="section-sub">
+            I am a Cybersecurity Engineer with a strong focus on building and securing modern systems.
+            I enjoy understanding attacker mindsets, breaking things ethically, and then hardening them.
+          </p>
+          <p class="text-muted">
+            My work spans Ethical Hacking, Network Security, IoT security, and secure web development.
+            I am comfortable working with Linux, scripting in Python, and using tools like Wireshark,
+            Nmap, Burp Suite and Metasploit. I also explore advanced areas such as
+            <strong>Post-Quantum Cryptography (PQC)</strong>, <strong>Machine Learning-based anomaly detection</strong>,
+            and <strong>Blockchain-backed data integrity</strong>.
+          </p>
         </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="page-section bg-dark text-white text-center">
-        <div class="container">
-            <h2>Contact Me</h2>
-            <p>Email: j.sanjaykumar1564@gmail.com</p>
-            <p>Phone: +91 63831 39214</p>
-            <p>LinkedIn: linkedin.com/in/sanjaykumar</p>
+        <div class="col-lg-5">
+          <div class="card-hacker">
+            <div class="pill-soft mb-2">Snapshot</div>
+            <ul class="list-compact">
+              <li>B.E. Cyber Security, SRM Valliammai Engineering College (2021–2025)</li>
+              <li>Intern – Web Development at CodeBind Technologies (Aug 2023)</li>
+              <li>Ethical Hacking & TCS Forage Cyber Security Analyst simulations completed</li>
+              <li>Comfortable with Python, C, SQL, Bash & full-stack web basics</li>
+            </ul>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-title">Skills</div>
+      <h2 class="section-heading">Core Technical Stack</h2>
+      <p class="section-sub">
+        A mix of offensive and defensive skills across programming, security tooling and emerging tech.
+      </p>
+
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="card-hacker">
+            <div class="pill-soft mb-2">Programming</div>
+            <div>
+              <div class="skill-chip"><span></span>Python</div>
+              <div class="skill-chip"><span></span>C</div>
+              <div class="skill-chip"><span></span>SQL</div>
+              <div class="skill-chip"><span></span>Bash (Basic)</div>
+              <div class="skill-chip"><span></span>HTML / CSS / JS / PHP</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card-hacker">
+            <div class="pill-soft mb-2">Security & Networking</div>
+            <div>
+              <div class="skill-chip"><span></span>Ethical Hacking</div>
+              <div class="skill-chip"><span></span>Network Security</div>
+              <div class="skill-chip"><span></span>Threat Detection</div>
+              <div class="skill-chip"><span></span>Vulnerability Assessment</div>
+              <div class="skill-chip"><span></span>Log Analysis (Beginner)</div>
+              <div class="skill-chip"><span></span>Firewall & IDS/IPS Concepts</div>
+              <div class="skill-chip"><span></span>OWASP Top 10</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card-hacker">
+            <div class="pill-soft mb-2">Tools & Emerging Tech</div>
+            <div>
+              <div class="skill-chip"><span></span>Wireshark</div>
+              <div class="skill-chip"><span></span>Nmap</div>
+              <div class="skill-chip"><span></span>Burp Suite</div>
+              <div class="skill-chip"><span></span>Kali Linux</div>
+              <div class="skill-chip"><span></span>Metasploit (Basic)</div>
+              <div class="skill-chip"><span></span>Ganache & Ethereum</div>
+              <div class="skill-chip"><span></span>TensorFlow (Beginner)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-title">Projects</div>
+      <h2 class="section-heading">Security Projects & Research</h2>
+      <p class="section-sub">
+        A glimpse into the problems I solve and the technologies I experiment with.
+      </p>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card-hacker h-100">
+            <div class="pill-soft mb-2">Post-Quantum Cryptography</div>
+            <h5 class="mb-1">Quantum-Resistant Cryptography</h5>
+            <p class="text-muted small mb-2">Python · NIST PQC Libraries</p>
+            <ul class="list-compact">
+              <li>Designed and evaluated quantum-resistant cryptographic algorithms using PQC standards.</li>
+              <li>Implemented key generation and encryption in Python with NIST PQC primitives.</li>
+              <li>Analyzed integrity and resistance to quantum-based attacks and performance impact.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card-hacker h-100">
+            <div class="pill-soft mb-2">ML + Blockchain Security</div>
+            <h5 class="mb-1">Machine Learning + Blockchain for Edge Device Security</h5>
+            <p class="text-muted small mb-2">Python · TensorFlow · Ethereum · Ganache · Flask</p>
+            <ul class="list-compact">
+              <li>Developed a secure data pipeline for IoT edge devices using ML-based anomaly detection.</li>
+              <li>Integrated TensorFlow models with Ethereum blockchain for tamper-proof data tracking.</li>
+              <li>Built a Flask backend for secure communication, logging and performance analysis.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-title">Experience</div>
+      <h2 class="section-heading">Where I’ve Worked</h2>
+
+      <div class="row g-4">
+        <div class="col-md-8">
+          <div class="card-hacker">
+            <div class="pill-soft mb-2">Internship</div>
+            <h5 class="mb-1">Web Development Intern — CodeBind Technologies</h5>
+            <p class="text-muted small mb-2">Chennai · Aug 2023</p>
+            <ul class="list-compact">
+              <li>Developed responsive web apps using HTML, CSS, JavaScript, PHP and MySQL.</li>
+              <li>Debugged, tested and deployed functional modules to improve UI and user experience.</li>
+              <li>Gained understanding of full-stack development, client–server architecture and basic application security practices.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card-hacker">
+            <div class="pill-soft mb-2">Education</div>
+            <ul class="list-compact">
+              <li>B.E. Cyber Security – SRM Valliammai Engineering College (2021–2025)</li>
+              <li>Higher Secondary – Bharathidasan Matric Hr. Sec. School (2020–2021)</li>
+            </ul>
+            <div class="pill-soft mt-3 mb-1">Certifications</div>
+            <ul class="list-compact">
+              <li>Ethical Hacking – Certificate in Ethical Hacking</li>
+              <li>Cyber Security Analyst – Job Simulation (TCS Forage)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-title">Contact</div>
+      <h2 class="section-heading">Let’s Talk Security</h2>
+      <p class="section-sub">
+        Open to SOC / Security Analyst / InfoSec roles, security research collaborations and internship opportunities.
+      </p>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="contact-box">
+            <p class="mb-3 text-muted small">
+              Whether it’s blue-team monitoring, red-team style assessments, or experimental projects
+              in PQC and ML security — I’d love to be part of it.
+            </p>
+
+            <a class="contact-link" href="mailto:j.sanjaykumar1564@gmail.com">
+              <i>@</i>
+              <span>j.sanjaykumar1564@gmail.com</span>
+            </a>
+
+            <div class="contact-link">
+              <i>☎</i>
+              <span>+91 63831 39214</span>
+            </div>
+
+            <a class="contact-link" href="https://linkedin.com/in/sanjaykumar" target="_blank" rel="noreferrer">
+              <i>in</i>
+              <span>linkedin.com/in/sanjaykumar</span>
+            </a>
+
+            <!-- Optional: add GitHub later -->
+            <!--
+            <a class="contact-link" href="https://github.com/YOUR_GITHUB" target="_blank" rel="noreferrer">
+              <i>gh</i>
+              <span>github.com/YOUR_GITHUB</span>
+            </a>
+            -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 · Built by Sanjay Kumar J · Cybersecurity Engineer · Powered by GitHub Pages
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
